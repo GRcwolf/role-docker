@@ -1,0 +1,11 @@
+# Packages, the docker installation depends on.
+docker_dependencies:
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+
+# The distro that is used in the repository url.
+docker_repo_distro: "{{ ansible_distribution|lower }}"
+# The release used in the docker repository url.
+docker_repo_release: "{{ ansible_distribution_release|lower }}"

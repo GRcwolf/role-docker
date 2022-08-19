@@ -1,0 +1,29 @@
+#+title: Docker Role
+#+author: Chris Wolf <chris@chriswolf.ch>
+
+This role installs docker on the system.
+
+** Compatibility
+This role is only set up for debian bases systems as it uses =apt=.
+
+** Configuration
+This role defines some variables that you can use, to adjust the behaviour of the role.
+
+| Name                          | Default | Description                                         |
+|-------------------------------+---------+-----------------------------------------------------|
+| docker_install_compose_plugin | no      | Specifies if the compose plugin should be installed |
+| docker_repo_arch              | amd64   | The architecture used to add the apt repository     |
+| docker_service_enabled        | yes     | Specifies if the docker service should be enabled   |
+
+** Variables
+The role defines some variables that are not intended to be changed.
+You should be able to adjust everything you need with the variables described above.
+But if you want to change them, feel free to do so.
+
+| Name                | Default                                             | Description                                      |
+|---------------------+-----------------------------------------------------+--------------------------------------------------|
+| docker_dependencies | ["ca-certificates", "curl", "gnupg", "lsb-release"] | Dependencies that are required to install docker |
+| docker_repo_distro  | ~{{ ansible_distribution }}~                        | The distribuition used in the repo url           |
+| docker_repo_release | ~{{ ansible_distribution_release }}~                | The release name used in the repo url            |
+
+You may want to change the ~docker_repo_distro~ and ~docker_repo_release~ values, in case your system isn't supported (yet).

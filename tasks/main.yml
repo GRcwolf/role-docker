@@ -1,0 +1,35 @@
+- name: Install dependencies
+  apt:
+    name: "{{ docker_dependencies }}"
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Install repository key
+  apt_key:
+    url: "https://download.docker.com/{{ docker_repo_distro }}/ubuntu/gpg"
+    state: present
+
+- name: Add the docker repository
+  apt_repository:
+    repo: "deb [arch={{ docker_repo_arch }}] https://download.docker.com/linux/{{ docker_repo_distribution }} {{ docker_repo_release }} stable"
+    state: present
+
+- name: Install docker
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+    state: latest
+
+- name: Install docker compose plugin
+  apt:
+    name: docker-compose-plugin
+    state: latest
+  when: docker_install_compose_plugin
+
+- name: Ensure that the docker service is running
+  service:
+    name: docker
+    enabled: "{{ docker_service_enabled }}"
+    state: started
